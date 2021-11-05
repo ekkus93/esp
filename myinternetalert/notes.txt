@@ -1,0 +1,13 @@
+it pings every 10 (configurable) seconds to chs.myinternetalert.com.  if the pinger on the tag doesn't get a return packet, it tries again (3 more times) and if none of those get through (ICMP remember ...)  it tries a 10 ping flood.  If none of those succeed, it assumes internet is lost and restarts the register daemon.  the back office watches for pings and records in mysql table.
+
+every second, that table has status every record (ip address which pinged) over 17 seconds old changed  from 1 to zero
+
+there's another program which watches the monitor table (above) and compares with history file, records the new info if it's different.  this creates a sparse history table where the last entry is the current status
+
+
+
+production server is ok with me.
+myinternetalert.com/api/register
+curl -X POST -H 'Accept: application/json'  -H 'x-mina-mac: b827ebb3ffec' -d {"pinger":"01","register":"01","gateway":"192.168.0.1","wificheck":"01","rel":"5.4.83+","sigled":"01","disk":"19","uptime":"343816","load":"35","cpu":"armv6l"} "https://myinternetalert.com/api/register"
+ping -c 1 -W1 -n -s 0  myinternetalert.com  (size = 0 which results in a final packet of 8 bytes)
+
