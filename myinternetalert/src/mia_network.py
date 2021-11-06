@@ -35,6 +35,7 @@ def postData():
     
     uptime = getCurrTicks()
     mac = getMAC()
+    print("mac: ", mac)
     
     data = {
         "pinger":"01",

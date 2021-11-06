@@ -1,8 +1,8 @@
 LED = {
     "red": {
             "pin": 33,
-            "on": 1,
-            "off": 0
+            "on": 0,
+            "off": 1
     },
     "white": {
             "pin": 4,

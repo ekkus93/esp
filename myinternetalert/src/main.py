@@ -1,6 +1,5 @@
 from machine import Pin, Timer, disable_irq, enable_irq
 from time import sleep
-#import uasyncio
 import micropython
 import gc
 from connect import doConnect
@@ -70,11 +69,10 @@ def initTimers():
 def init():
     redLedOff()
     whiteLedOff()
+    initTimers()
 
 def main():
-    global pingFlag, postFlag
     init()
-    initTimers()
 
     while True:
         print(pingFlag, postFlag)
