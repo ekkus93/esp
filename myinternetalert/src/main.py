@@ -9,6 +9,7 @@ from config import *
 
 micropython.alloc_emergency_exception_buf(100)
 
+connectedFlag = False
 pingFlag = False
 postFlag = False
 pingTimer = None
@@ -17,28 +18,44 @@ postTimer = None
 def doPing():
     global pingFlag
     
+    ok = True
     if pingFlag:
         print('start doPing')
-        redLedOn()
-        pingMyInternetAlert(quiet=True)
+        try:
+            redLedOn()
+            pingMyInternetAlert(quiet=True)
+            pingFlag = False
 
-        gc.mem_free()
-        redLedOff()
-        pingFlag = False
-        print('end doPing')
+            gc.mem_free()
+        except Exception as e:
+            ok = False
+            print("ERROR: ", e)
+        finally:
+            redLedOff()
+            print('end doPing')
+        
+    return ok
     
 def doPost():
     global postFlag
-    
+        
+    ok = True
     if postFlag:
         print('start doPost')
-        whiteLedOn()
-        postData()
-        
-        gc.mem_free()
-        whiteLedOff()
-        postFlag = False
-        print('end doPost')
+        try:
+            whiteLedOn()
+            postData()
+            postFlag = False
+            
+            gc.mem_free()
+        except Exception as e:
+            ok = False
+            print("ERROR: ", e)
+        finally:
+            whiteLedOff()
+            print('end doPost')
+            
+    return ok
     
 def handlePingTimer(timer):
     global pingFlag
@@ -72,15 +89,18 @@ def init():
     initTimers()
 
 def main():
+    global connectedFlag
+    
     init()
 
     while True:
         print(pingFlag, postFlag)
-        doConnect(doPost)
+        connectedFlag = doConnect(not connectedFlag, doPost)
+        
         if pingFlag:
-            doPing()
+            connectedFlag = doPing()
         elif postFlag:
-            doPost()
+            connectedFlag = doPost()
         else:
             print(gc.mem_free())
             gc.mem_free()
@@ -88,6 +108,7 @@ def main():
     
 print("starting")
 main()
+
 
 
 

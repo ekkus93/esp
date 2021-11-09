@@ -11,3 +11,10 @@ myinternetalert.com/api/register
 curl -X POST -H 'Accept: application/json'  -H 'x-mina-mac: b827ebb3ffec' -d {"pinger":"01","register":"01","gateway":"192.168.0.1","wificheck":"01","rel":"5.4.83+","sigled":"01","disk":"19","uptime":"343816","load":"35","cpu":"armv6l"} "https://myinternetalert.com/api/register"
 ping -c 1 -W1 -n -s 0  myinternetalert.com  (size = 0 which results in a final packet of 8 bytes)
 
+"-c 1" - count = 1
+"-W1" - "timeout = 1 sec"
+"-n" - " Numeric output only.  No attempt will be made to lookup symbolic names for host addresses."
+"-s 0" - packetsize = 0
+
+/usr/sbin/tcpdump -Klnpt -i eth0 -Z nobody icmp and icmp[icmptype]=icmp-echo |
+               /usr/bin/stdbuf -i0 -o0 -e0 cut -d' ' -f 2,13

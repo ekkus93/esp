@@ -10,9 +10,13 @@ def tryConnect(sta_if):
         
     return sta_if
 
-def doConnect(cb=None):
-    print('do_connect')
+def doConnect(forceConnect=False, cb=None):
+    print('doConnect')
     sta_if = network.WLAN(network.STA_IF)
+    
+    if forceConnect and sta_if.isconnected():
+        sta_if.disconnect()
+         
     if not sta_if.isconnected():
         print('connecting to network...')
         sta_if.active(True)
@@ -22,8 +26,12 @@ def doConnect(cb=None):
                 sta_if = tryConnect(sta_if)
                 connectFlag = True
             except Exception as e:
-                print(e)
+                print("ERROR - doConnect: ", e)
+            sleep(1)
+        
+        print('network config:', sta_if.ifconfig())
         if cb is not None:
-            cb()
-                
-    print('network config:', sta_if.ifconfig())
+            return cb()
+    else:
+        print('network config:', sta_if.ifconfig())
+        return True
