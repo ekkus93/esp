@@ -239,7 +239,7 @@ void sdcard_setup(){
     readFile(SD_MMC, sdWriteFile->path);
     Serial.printf("\n");
 
-    SDReadFile sdReadFile = new SDReadFile(fileName);
+    SDReadFile *sdReadFile = new SDReadFile(fileName);
     if (!sdReadFile->open(SD_MMC)) {
       Serial.printf("openRead failed");
     }
@@ -252,7 +252,7 @@ void sdcard_setup(){
       int numOfChars = sdReadFile->read(readBuf, readBufLen-1);
       if (numOfChars < 0) {
         Serial.printf("ERROR: read failed\n");
-        sdFile->close();
+        sdReadFile->close();
         return;        
       }
 
@@ -293,6 +293,11 @@ bool SDFile::close() {
 }
 
 // ***SDReadFile***
+SDReadFile::SDReadFile(const char* _path): SDFile(_path)
+{
+
+}
+
 bool SDReadFile::open(fs::FS &fs) 
 {
   if (openFlag) {
@@ -311,6 +316,16 @@ bool SDReadFile::open(fs::FS &fs)
   return true;
 }
 
+size_t SDReadFile::read(uint8_t *buf, size_t size)
+{
+  if (!openFlag) {
+    Serial.printf("ERROR: File, %s, is not open - 2\n", path);
+    return -1;
+  }
+
+  return file.read(buf, size);
+}
+
 uint8_t *SDReadFile::clearBuffer(uint8_t *buf, int size)
 {
   for(int i=0; i<size; i++) 
@@ -322,6 +337,10 @@ uint8_t *SDReadFile::clearBuffer(uint8_t *buf, int size)
 }
 
 // ***SDWriteFile***
+SDWriteFile::SDWriteFile(const char* _path): SDFile(_path)
+{
+}
+
 bool SDWriteFile::open(fs::FS &fs) 
 {
   if (openFlag) {
