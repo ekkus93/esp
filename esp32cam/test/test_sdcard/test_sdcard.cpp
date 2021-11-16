@@ -5,27 +5,29 @@
 
 const char *fileName = "/sdFile_test.txt";
 
-class SafeStr 
+class SafeStr
 {
-    private:
-        uint8_t *buf;
-        size_t bufLen;
-        void copyBuf(uint8_t *dest, const uint8_t *source, size_t sourceLen);
-    public:
-        SafeStr();
-        void append(const uint8_t *data, size_t dataLen);
-        char *toStr();
-        ~SafeStr();
+private:
+    uint8_t *buf;
+    size_t bufLen;
+    void copyBuf(uint8_t *dest, const uint8_t *source, size_t sourceLen);
+
+public:
+    SafeStr();
+    void append(const uint8_t *data, size_t dataLen);
+    char *toStr();
+    ~SafeStr();
 };
 
-void SafeStr::copyBuf(uint8_t *dest, const uint8_t *source, size_t sourceLen) {
-    for(int i=0; i<sourceLen; i++) 
+void SafeStr::copyBuf(uint8_t *dest, const uint8_t *source, size_t sourceLen)
+{
+    for (int i = 0; i < sourceLen; i++)
     {
         dest[i] = source[i];
     }
 }
 
-SafeStr::SafeStr() 
+SafeStr::SafeStr()
 {
     buf = NULL;
     bufLen = 0;
@@ -33,22 +35,23 @@ SafeStr::SafeStr()
 
 void SafeStr::append(const uint8_t *data, size_t dataLen)
 {
-    if (buf == NULL) {
-        buf = (uint8_t *)malloc(dataLen*sizeof(uint8_t));
+    if (buf == NULL)
+    {
+        buf = (uint8_t *)malloc(dataLen * sizeof(uint8_t));
         this->copyBuf(buf, data, dataLen);
         bufLen = dataLen;
         return;
     }
 
-    buf = (uint8_t *)realloc(buf, bufLen+dataLen);
+    buf = (uint8_t *)realloc(buf, bufLen + dataLen);
     this->copyBuf(&(buf[bufLen]), data, dataLen);
     bufLen += dataLen;
 }
 
-char *SafeStr::toStr() 
+char *SafeStr::toStr()
 {
-    char *retStr = (char *)calloc(bufLen+1, sizeof(char));
-    for(int i=0; i<bufLen; i++) 
+    char *retStr = (char *)calloc(bufLen + 1, sizeof(char));
+    for (int i = 0; i < bufLen; i++)
     {
         retStr[i] = buf[i];
     }
@@ -59,7 +62,8 @@ char *SafeStr::toStr()
 SafeStr::~SafeStr()
 {
     Serial.print("###SafeStr destructor - 1\n");
-    if (buf != NULL) {
+    if (buf != NULL)
+    {
         free(buf);
         buf = NULL;
     }
@@ -67,6 +71,11 @@ SafeStr::~SafeStr()
 }
 
 SafeStr *actualData = NULL;
+
+char filenames[3][20] = {
+    "/hello.txt",
+    "/foo.txt",
+    "/test.txt"};
 
 void setup(void)
 {
@@ -80,6 +89,15 @@ void setup(void)
         Serial.println("Card Mount Failed\n");
         return;
     }
+
+    for (int i = 0; i < 3; i++)
+    {
+        SDFile *sdFile = new SDFile(&SD_MMC, filenames[i]);
+        sdFile->deleteFile();
+    }
+
+    SDDir *sdDir = new SDDir(&SD_MMC);
+    sdDir->removeDir("/mydir");
 }
 
 void tearDown(void)
@@ -90,7 +108,9 @@ void tearDown(void)
         actualData = NULL;
     }
 
-    deleteFile(SD_MMC, fileName);
+    SDFile *sdFile = new SDFile(&SD_MMC, fileName);
+    sdFile->deleteFile();
+    // deleteFile(SD_MMC, fileName);
 }
 
 void writeTestFile()
@@ -175,7 +195,7 @@ void test_writeRead(void)
 
     char *actualStr = actualData->toStr();
     Serial.printf("###test_writeRead - 17 - actualStr: %s\n", actualStr);
-    
+
     int result = strcmp(actualStr, "foobarspam");
     free(actualStr);
     Serial.printf("###test_writeRead - 18\n");
@@ -219,7 +239,7 @@ void test_writeReadAll(void)
     Serial.printf("actualStr: %s\n", actualStr);
 
     Serial.printf("###test_writeReadAll - 6\n");
-    
+
     TEST_ASSERT_EQUAL(0, strcmp(actualStr, "foobarspam"));
     free(actualStr);
     Serial.printf("###test_writeReadAll - 7\n");
@@ -227,11 +247,151 @@ void test_writeReadAll(void)
     actualData = NULL;
     Serial.printf("###test_writeReadAll - 8\n");
 }
+ 
+int fileDirCnt = 0;
+int fileCnt = 0;
+int dirCnt = 0;
+int helloCnt = 0;
+int fooCnt = 0;
+bool processListDir(const char *filename, bool isDir, size_t fileSize)
+{
+    Serial.printf("filename: %s, filetype: %d, filesize: %d\n", filename, isDir, fileSize);
+    fileDirCnt++;
+    if (isDir) 
+    {
+        dirCnt++;
+    } else {
+        fileCnt++;
+    }
+
+    if (strcmp(filename, "/hello.txt") == 0)
+    {
+        helloCnt = 1;
+    }
+
+    if (strcmp(filename, "/foo.txt") == 0)
+    {
+        fooCnt = 1;
+    }
+    return true;
+}
+
+bool printBuf(const uint8_t *cbBuf, size_t cbSize)
+{
+    char *bufStr = (char *)calloc(cbSize+1, sizeof(char));
+    for(int i=0; i<cbSize; i++) 
+    {
+        bufStr[i] = (char)cbBuf[i];
+    }
+    Serial.printf("%s|", bufStr);
+    free(bufStr);
+
+    return true;
+}
+
+void test_sddir()
+{
+    uint8_t cardType = SD_MMC.cardType();
+    TEST_ASSERT_NOT_EQUAL(CARD_NONE, cardType);
+
+    Serial.print("SD_MMC Card Type: ");
+    if (cardType == CARD_MMC)
+    {
+        Serial.println("MMC");
+    }
+    else if (cardType == CARD_SD)
+    {
+        Serial.println("SDSC");
+    }
+    else if (cardType == CARD_SDHC)
+    {
+        Serial.println("SDHC");
+    }
+    else
+    {
+        Serial.println("UNKNOWN");
+    }
+
+    uint64_t cardSize = SD_MMC.cardSize() / (1024 * 1024);
+    Serial.printf("SD_MMC Card Size: %lluMB\n", cardSize);
+
+    // no files
+    fileDirCnt = fileCnt = dirCnt = 0;
+    SDDir *sdDir = new SDDir(&SD_MMC);
+    TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
+    TEST_ASSERT_EQUAL(1, fileDirCnt);
+    TEST_ASSERT_EQUAL(0, fileCnt);
+    TEST_ASSERT_EQUAL(1, dirCnt);
+
+    // one directory
+    fileDirCnt = fileCnt = dirCnt = 0;
+    TEST_ASSERT_EQUAL(true, sdDir->createDir("/mydir"));
+    TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
+    TEST_ASSERT_EQUAL(2, fileDirCnt);
+    TEST_ASSERT_EQUAL(0, fileCnt);
+    TEST_ASSERT_EQUAL(2, dirCnt);
+    
+    // no directory
+    fileDirCnt = fileCnt = dirCnt = 0;
+    TEST_ASSERT_EQUAL(true, sdDir->removeDir("/mydir"));
+    TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
+    TEST_ASSERT_EQUAL(1, fileDirCnt);
+    TEST_ASSERT_EQUAL(0, fileCnt);
+    TEST_ASSERT_EQUAL(1, dirCnt);
+
+    // hello
+    fileDirCnt = fileCnt = dirCnt = helloCnt = 0;
+    SDWriteFile *sdWriteFile = new SDWriteFile(&SD_MMC, "/hello.txt");
+    TEST_ASSERT_EQUAL(true, sdWriteFile->open());
+    const char *helloStr = "Hello ";
+    const char *worldStr = "World!\n";
+    sdWriteFile->write((const uint8_t *)helloStr, strlen(helloStr));
+    sdWriteFile->write((const uint8_t *)worldStr, strlen(worldStr));
+    sdWriteFile->close();
+    TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
+    TEST_ASSERT_EQUAL(2, fileDirCnt);
+    TEST_ASSERT_EQUAL(1, fileCnt);
+    TEST_ASSERT_EQUAL(1, dirCnt);
+    TEST_ASSERT_EQUAL(1, helloCnt);
+    delete sdWriteFile;
+
+    SDReadFile *sdReadFile = new SDReadFile(&SD_MMC, "/hello.txt");
+    TEST_ASSERT_EQUAL(true, sdReadFile->open());
+    TEST_ASSERT_EQUAL(true, sdReadFile->readAll(4, &printBuf));
+    TEST_ASSERT_EQUAL(true, sdReadFile->close());
+    delete sdReadFile;
+
+    // foo
+    SDFile *sdFile = new SDFile(&SD_MMC, "/hello.txt");
+    sdFile->renameFile("/foo.txt");
+    fileDirCnt = fileCnt = dirCnt = helloCnt = fooCnt = 0;
+    TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
+    TEST_ASSERT_EQUAL(2, fileDirCnt);
+    TEST_ASSERT_EQUAL(1, fileCnt);
+    TEST_ASSERT_EQUAL(1, dirCnt);
+    TEST_ASSERT_EQUAL(0, helloCnt);
+    TEST_ASSERT_EQUAL(1, fooCnt);
+    delete sdFile;
+
+    sdReadFile = new SDReadFile(&SD_MMC, "/foo.txt");
+    TEST_ASSERT_EQUAL(true, sdReadFile->open());
+    TEST_ASSERT_EQUAL(true, sdReadFile->readAll(4, &printBuf));
+    TEST_ASSERT_EQUAL(true, sdReadFile->close());
+    delete sdReadFile;
+
+    testFileIO(SD_MMC, "/test.txt");
+
+    Serial.printf("Total space: %lluMB\n", SD_MMC.totalBytes() / (1024 * 1024));
+    Serial.printf("Used space: %lluMB\n", SD_MMC.usedBytes() / (1024 * 1024));
+}
 
 void loop()
 {
     UNITY_BEGIN();
+    /*
     RUN_TEST(test_writeRead);
     RUN_TEST(test_writeReadAll);
+    */
+    RUN_TEST(test_sddir);
     UNITY_END(); // stop unit testing
 }

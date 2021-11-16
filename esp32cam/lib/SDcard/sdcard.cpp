@@ -410,6 +410,17 @@ bool SDFile::renameFile(const char *newPath)
   }
 }
 
+SDFile::~SDFile()
+{
+  if (openFlag)
+  {
+    if (!close())
+    {
+      Serial.printf("Closing file, %s, failed\n", path);
+    }
+  }
+}
+
 // ***SDReadFile***
 SDReadFile::SDReadFile(fs::FS *filestream, const char *path): SDFile(filestream, path)
 {
@@ -460,15 +471,15 @@ bool SDReadFile::readAll(size_t size, bool (*cb)(const uint8_t *cbBuf, size_t cb
   Serial.printf("###readAll - 4\n");
 
   while(sizeRead > 0) {
-    Serial.printf("###readAll - 5a\n");
+    // Serial.printf("###readAll - 5a\n");
     if (!cb(buf, sizeRead)) {
-      Serial.printf("###readAll - 6\n");
+      // Serial.printf("###readAll - 6\n");
       free(buf);
       return true;
     }
-    Serial.printf("###readAll - 5b\n");
+    // Serial.printf("###readAll - 5b\n");
     sizeRead = read(buf, size);
-    Serial.printf("###readAll - 5c\n");
+    // Serial.printf("###readAll - 5c\n");
   }
 
   Serial.printf("###readAll - 7\n");

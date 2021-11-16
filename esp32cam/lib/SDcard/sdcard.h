@@ -38,6 +38,7 @@ class SDFile
     bool close();
     bool deleteFile();
     bool renameFile(const char *newPath);
+    virtual ~SDFile();
 };
 
 class SDReadFile: public SDFile 
