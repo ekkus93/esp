@@ -1,5 +1,6 @@
 #include "esp_camera.h"
 #include <WiFi.h>
+#include "wifi_manager.h"
 
 //
 // WARNING!!! PSRAM IC required for UXGA resolution and high JPEG quality
@@ -30,9 +31,8 @@ void setup() {
   Serial.setDebugOutput(true);
   Serial.println();
 
-  sdcard_setup();
+  // sdcard_setup();
 
-  /*
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -108,8 +108,6 @@ void setup() {
   Serial.print("Camera Ready! Use 'http://");
   Serial.print(WiFi.localIP());
   Serial.println("' to connect");
-  */
-
 }
 
 void loop() {

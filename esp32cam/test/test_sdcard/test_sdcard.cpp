@@ -61,13 +61,11 @@ char *SafeStr::toStr()
 
 SafeStr::~SafeStr()
 {
-    Serial.print("###SafeStr destructor - 1\n");
     if (buf != NULL)
     {
         free(buf);
         buf = NULL;
     }
-    Serial.print("###SafeStr destructor - 2\n");
 }
 
 SafeStr *actualData = NULL;
@@ -110,39 +108,33 @@ void tearDown(void)
 
     SDFile *sdFile = new SDFile(&SD_MMC, fileName);
     sdFile->deleteFile();
-    // deleteFile(SD_MMC, fileName);
 }
 
 void writeTestFile()
 {
-    deleteFile(SD_MMC, fileName);
+    SDFile *sdFile = new SDFile(&SD_MMC, fileName);
+    sdFile->deleteFile();
 
-    Serial.printf("###test_writeRead - 1\n");
     SDWriteFile *sdWriteFile = new SDWriteFile(&SD_MMC, fileName);
-    Serial.printf("###test_writeRead - 2\n");
     if (!sdWriteFile->open())
     {
         Serial.printf("openWrite failed\n");
     }
-    Serial.printf("###test_writeRead - 3\n");
     if (!sdWriteFile->file)
     {
         Serial.println("Failed to open file for writing\n");
         return;
     }
-    Serial.printf("###test_writeRead - 4\n");
 
     const char *txtStr1 = "foobar";
     size_t txtStrSize = sdWriteFile->write((const uint8_t *)txtStr1, strlen(txtStr1));
-    Serial.printf("###test_writeRead - 5\n");
 
     const char *txtStr2 = "spam";
     txtStrSize = sdWriteFile->write((const uint8_t *)txtStr2, strlen(txtStr2));
     if (!sdWriteFile->close())
     {
-        Serial.printf("###sdFile close failed\n");
+        Serial.printf("sdFile close failed\n");
     }
-    Serial.printf("###test_writeRead - 6\n");
 }
 
 void test_writeRead(void)
@@ -151,57 +143,44 @@ void test_writeRead(void)
 
     actualData = new SafeStr();
     SDReadFile *sdReadFile = new SDReadFile(&SD_MMC, fileName);
-    Serial.printf("###test_writeRead - 8\n");
     if (!sdReadFile->open())
     {
         Serial.printf("openRead failed\n");
     }
-    Serial.printf("###test_writeRead - 9\n");
 
     const int readBufLen = 4;
     uint8_t *readBuf = (uint8_t *)calloc(4, sizeof(uint8_t));
 
-    Serial.printf("###test_writeRead - 10\n");
     bool hasChars = true;
     while (hasChars)
     {
-        Serial.printf("###test_writeRead - 11\n");
         sdReadFile->clearBuffer(readBuf, readBufLen);
         int numOfChars = sdReadFile->read(readBuf, readBufLen - 1);
         if (numOfChars < 0)
         {
-            Serial.printf("###test_writeRead - 12\n");
-            Serial.printf("ERROR: read failed\n\n");
             sdReadFile->close();
             return;
         }
-        Serial.printf("###test_writeRead - 13\n");
 
         if (numOfChars > 0)
         {
-            Serial.printf("###test_writeRead - 14\n");
             actualData->append(readBuf, numOfChars);
         }
         else
         {
-            Serial.printf("###test_writeRead - 15\n");
             Serial.printf("\n\n");
             hasChars = false;
         }
-        Serial.printf("###test_writeRead - 16\n");
     }
     free(readBuf);
     sdReadFile->close();
 
     char *actualStr = actualData->toStr();
-    Serial.printf("###test_writeRead - 17 - actualStr: %s\n", actualStr);
 
     int result = strcmp(actualStr, "foobarspam");
     free(actualStr);
-    Serial.printf("###test_writeRead - 18\n");
     delete actualData;
     actualData = NULL;
-    Serial.printf("###test_writeRead - 19 - result: %d\n", result);
     TEST_ASSERT_EQUAL(0, result);
 }
 
@@ -218,36 +197,28 @@ void test_writeReadAll(void)
 
     actualData = new SafeStr();
     SDReadFile *sdReadFile = new SDReadFile(&SD_MMC, fileName);
-    Serial.printf("###test_writeReadAll - 1\n");
     if (!sdReadFile->open())
     {
         Serial.printf("openRead failed\n");
     }
-    Serial.printf("###test_writeReadAll - 2\n");
 
     const int readBufLen = 4;
 
-    Serial.printf("###test_writeReadAll - 3\n");
     bool result = sdReadFile->readAll(readBufLen, processBuffer);
     TEST_ASSERT_EQUAL(true, result);
 
-    Serial.printf("###test_writeReadAll - 4\n");
     sdReadFile->close();
 
     char *actualStr = actualData->toStr();
-    Serial.printf("###test_writeReadAll - 5\n");
     Serial.printf("actualStr: %s\n", actualStr);
 
-    Serial.printf("###test_writeReadAll - 6\n");
 
     TEST_ASSERT_EQUAL(0, strcmp(actualStr, "foobarspam"));
     free(actualStr);
-    Serial.printf("###test_writeReadAll - 7\n");
     delete actualData;
     actualData = NULL;
-    Serial.printf("###test_writeReadAll - 8\n");
 }
- 
+
 int fileDirCnt = 0;
 int fileCnt = 0;
 int dirCnt = 0;
@@ -257,10 +228,12 @@ bool processListDir(const char *filename, bool isDir, size_t fileSize)
 {
     Serial.printf("filename: %s, filetype: %d, filesize: %d\n", filename, isDir, fileSize);
     fileDirCnt++;
-    if (isDir) 
+    if (isDir)
     {
         dirCnt++;
-    } else {
+    }
+    else
+    {
         fileCnt++;
     }
 
@@ -278,8 +251,8 @@ bool processListDir(const char *filename, bool isDir, size_t fileSize)
 
 bool printBuf(const uint8_t *cbBuf, size_t cbSize)
 {
-    char *bufStr = (char *)calloc(cbSize+1, sizeof(char));
-    for(int i=0; i<cbSize; i++) 
+    char *bufStr = (char *)calloc(cbSize + 1, sizeof(char));
+    for (int i = 0; i < cbSize; i++)
     {
         bufStr[i] = (char)cbBuf[i];
     }
@@ -316,6 +289,7 @@ void test_sddir()
     Serial.printf("SD_MMC Card Size: %lluMB\n", cardSize);
 
     // no files
+    Serial.printf("no files\n");
     fileDirCnt = fileCnt = dirCnt = 0;
     SDDir *sdDir = new SDDir(&SD_MMC);
     TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
@@ -324,14 +298,16 @@ void test_sddir()
     TEST_ASSERT_EQUAL(1, dirCnt);
 
     // one directory
+    Serial.printf("one directory\n");
     fileDirCnt = fileCnt = dirCnt = 0;
     TEST_ASSERT_EQUAL(true, sdDir->createDir("/mydir"));
     TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
     TEST_ASSERT_EQUAL(2, fileDirCnt);
     TEST_ASSERT_EQUAL(0, fileCnt);
     TEST_ASSERT_EQUAL(2, dirCnt);
-    
+
     // no directory
+    Serial.printf("no directory\n");
     fileDirCnt = fileCnt = dirCnt = 0;
     TEST_ASSERT_EQUAL(true, sdDir->removeDir("/mydir"));
     TEST_ASSERT_EQUAL(true, sdDir->listDir("/", &processListDir));
@@ -340,6 +316,7 @@ void test_sddir()
     TEST_ASSERT_EQUAL(1, dirCnt);
 
     // hello
+    Serial.printf("hello\n");
     fileDirCnt = fileCnt = dirCnt = helloCnt = 0;
     SDWriteFile *sdWriteFile = new SDWriteFile(&SD_MMC, "/hello.txt");
     TEST_ASSERT_EQUAL(true, sdWriteFile->open());
@@ -362,6 +339,7 @@ void test_sddir()
     delete sdReadFile;
 
     // foo
+    Serial.printf("foo\n");
     SDFile *sdFile = new SDFile(&SD_MMC, "/hello.txt");
     sdFile->renameFile("/foo.txt");
     fileDirCnt = fileCnt = dirCnt = helloCnt = fooCnt = 0;
@@ -379,19 +357,66 @@ void test_sddir()
     TEST_ASSERT_EQUAL(true, sdReadFile->close());
     delete sdReadFile;
 
-    testFileIO(SD_MMC, "/test.txt");
-
     Serial.printf("Total space: %lluMB\n", SD_MMC.totalBytes() / (1024 * 1024));
     Serial.printf("Used space: %lluMB\n", SD_MMC.usedBytes() / (1024 * 1024));
+}
+
+void test_FileIO()
+{
+    const char *path = "/test.txt";
+    File file = SD_MMC.open(path);
+    static uint8_t buf[512];
+    size_t len = 0;
+    uint32_t start = millis();
+    uint32_t end = start;
+    if (file)
+    {
+        len = file.size();
+        size_t flen = len;
+        start = millis();
+        while (len)
+        {
+            size_t toRead = len;
+            if (toRead > 512)
+            {
+                toRead = 512;
+            }
+            file.read(buf, toRead);
+            len -= toRead;
+        }
+        end = millis() - start;
+        Serial.printf("%u bytes read for %u ms\n", flen, end);
+        file.close();
+    }
+    else
+    {
+        Serial.println("Failed to open file for reading");
+    }
+
+    file = SD_MMC.open(path, FILE_WRITE);
+    if (!file)
+    {
+        Serial.println("Failed to open file for writing");
+        return;
+    }
+
+    size_t i;
+    start = millis();
+    for (i = 0; i < 2048; i++)
+    {
+        file.write(buf, 512);
+    }
+    end = millis() - start;
+    Serial.printf("%u bytes written for %u ms\n", 2048 * 512, end);
+    file.close();
 }
 
 void loop()
 {
     UNITY_BEGIN();
-    /*
     RUN_TEST(test_writeRead);
     RUN_TEST(test_writeReadAll);
-    */
     RUN_TEST(test_sddir);
+    RUN_TEST(test_FileIO);
     UNITY_END(); // stop unit testing
 }
