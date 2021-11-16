@@ -215,67 +215,17 @@ void sdcard_setup()
     testFileIO(SD_MMC, "/test.txt");
     Serial.printf("Total space: %lluMB\n", SD_MMC.totalBytes() / (1024 * 1024));
     Serial.printf("Used space: %lluMB\n", SD_MMC.usedBytes() / (1024 * 1024));
-
-    // test SDFile
-    const char* fileName = "/sdFile_test.txt";
-    deleteFile(SD_MMC, fileName);
-    SDWriteFile *sdWriteFile = new SDWriteFile(fileName);
-    if (!sdWriteFile->open(SD_MMC)) {
-      Serial.printf("openWrite failed");
-    }
-    if(!sdWriteFile->file){
-        Serial.println("Failed to open file for writing");
-        return;
-    }
-
-    const char* txtStr1 = "foobar";
-    size_t txtStrSize = sdWriteFile->write((const uint8_t*)txtStr1, strlen(txtStr1));
-
-    const char* txtStr2 = "spam";
-    txtStrSize = sdWriteFile->write((const uint8_t*)txtStr2, strlen(txtStr2));
-    if (!sdWriteFile->close()) {
-      Serial.printf("###sdFile close failed");
-    }
-
-    readFile(SD_MMC, sdWriteFile->path);
-    Serial.printf("\n");
-
-    SDReadFile *sdReadFile = new SDReadFile(fileName);
-    if (!sdReadFile->open(SD_MMC)) {
-      Serial.printf("openRead failed");
-    }
-
-    const int readBufLen = 4;
-    uint8_t *readBuf = (uint8_t *)calloc(4, sizeof(uint8_t));
-    bool hasChars = true;
-    while(hasChars) {
-      sdReadFile->clearBuffer(readBuf, readBufLen);
-      int numOfChars = sdReadFile->read(readBuf, readBufLen-1);
-      if (numOfChars < 0) {
-        Serial.printf("ERROR: read failed\n");
-        sdReadFile->close();
-        return;        
-      }
-
-      if (numOfChars > 0) {
-        Serial.printf("%s", (char *)readBuf);
-      } else {
-        Serial.printf("\n");
-        hasChars = false;
-      }
-    }
-    free(readBuf);
-    sdReadFile->close();
 }
 
 // ***SDFile***
-SDFile::SDFile(const char* _path) 
+SDFile::SDFile(fs::FS *filestream, const char* path) 
 {
-  openFlag = false;
-  path = _path;
+  this->filestream = filestream;
+  this->openFlag = false;
+  this->path = path;
 }
 
-bool SDFile::open(fs::FS &fs) 
+bool SDFile::open() 
 {
   Serial.printf("ERROR: not implemented");
   return false;
@@ -294,19 +244,18 @@ bool SDFile::close() {
 }
 
 // ***SDReadFile***
-SDReadFile::SDReadFile(const char* _path): SDFile(_path)
+SDReadFile::SDReadFile(fs::FS *filestream, const char* path): SDFile(filestream, path)
 {
-
 }
 
-bool SDReadFile::open(fs::FS &fs) 
+bool SDReadFile::open() 
 {
   if (openFlag) {
     Serial.printf("ERROR: File, %s, is already open - 1\n", path);
     return false;
   }
 
-  file = fs.open(path);
+  file = filestream->open(path);
   if(!file){
     Serial.println("Failed to open file for reading");
     return false;
@@ -338,18 +287,18 @@ uint8_t *SDReadFile::clearBuffer(uint8_t *buf, int size)
 }
 
 // ***SDWriteFile***
-SDWriteFile::SDWriteFile(const char* _path): SDFile(_path)
+SDWriteFile::SDWriteFile(fs::FS *filestream, const char *path): SDFile(filestream, path)
 {
 }
 
-bool SDWriteFile::open(fs::FS &fs) 
+bool SDWriteFile::open() 
 {
   if (openFlag) {
     Serial.printf("ERROR: File, %s, is already open - 2\n", path);
     return false;
   }
 
-  file = fs.open(path, FILE_WRITE);
+  file = filestream->open(path, FILE_WRITE);
   if(!file){
     Serial.println("Failed to open file for writing");
     return false;

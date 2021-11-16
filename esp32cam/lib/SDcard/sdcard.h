@@ -17,20 +17,21 @@ void sdcard_setup();
 class SDFile 
 {
   public:
+    fs::FS *filestream = NULL;
     const char *path;
     File file;
     bool openFlag = false;
     
-    SDFile(const char *_path);
-    virtual bool open(fs::FS &fs);
+    SDFile(fs::FS *filestream, const char *path);
+    virtual bool open();
     bool close();
 };
 
 class SDReadFile: public SDFile 
 {    
   public:
-    SDReadFile(const char *_path);
-    bool open(fs::FS &fs);
+    SDReadFile(fs::FS *filestream, const char *path);
+    bool open();
     size_t read(uint8_t *buf, size_t size);
     uint8_t *clearBuffer(uint8_t *buf, int size);
 };
@@ -38,8 +39,8 @@ class SDReadFile: public SDFile
 class SDWriteFile: public SDFile
 {   
   public: 
-    SDWriteFile(const char *_path);
-    bool open(fs::FS &fs);
+    SDWriteFile(fs::FS *filestream, const char *path);
+    bool open();
     size_t write(const uint8_t *buf, size_t size);
 };
 
