@@ -14,6 +14,17 @@ void deleteFile(fs::FS &fs, const char * path);
 void testFileIO(fs::FS &fs, const char * path);
 void sdcard_setup();
 
+class SDDir
+{
+  public:
+    fs::FS *filestream = NULL;
+
+    SDDir(fs::FS *filestream);
+    bool listDir(const char *dirname, bool (*cb)(const char *filename, bool isDir, size_t fileSize));
+    bool createDir(const char * path);
+    bool removeDir(const char * path);    
+};
+
 class SDFile 
 {
   public:
@@ -25,6 +36,8 @@ class SDFile
     SDFile(fs::FS *filestream, const char *path);
     virtual bool open();
     bool close();
+    bool deleteFile();
+    bool renameFile(const char *newPath);
 };
 
 class SDReadFile: public SDFile 
@@ -33,7 +46,8 @@ class SDReadFile: public SDFile
     SDReadFile(fs::FS *filestream, const char *path);
     bool open();
     size_t read(uint8_t *buf, size_t size);
-    uint8_t *clearBuffer(uint8_t *buf, int size);
+    bool readAll(size_t size, bool (*cb)(const uint8_t *cbBuf, size_t cbSize));
+    uint8_t *clearBuffer(uint8_t *buf, size_t size);
 };
 
 class SDWriteFile: public SDFile
