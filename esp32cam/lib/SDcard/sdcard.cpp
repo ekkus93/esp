@@ -171,7 +171,8 @@ void testFileIO(fs::FS &fs, const char * path){
     file.close();
 }
 
-void sdcard_setup(){
+void sdcard_setup()
+{
     // Serial.begin(115200);
 
     if (!SD_MMC.begin("/sdcard", true)){         // https://dr-mntn.net/2021/02/using-the-sd-card-in-1-bit-mode-on-the-esp32-cam-from-ai-thinker
