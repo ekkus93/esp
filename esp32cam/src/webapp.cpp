@@ -20,28 +20,21 @@ String makeHtmlResp()
 
 void handleRoot()
 {
-  Serial.printf("###handleRoot - 1\n");
   whiteLedOn();
   server->send(200, "text/html", makeHtmlResp());
-  Serial.printf("###handleRoot - 2\n");
   whiteLedOff();
 }
 
 void webAppSetup()
 {
-  Serial.printf("###WebApp - 1\n");
   server = new WebServer(PORT);
-  Serial.printf("###WebApp - 2\n");
 
   server->on("/", handleRoot);
   server->begin();
   Serial.println("HTTP server started");
-  Serial.printf("###WebApp - 3\n");
 }
 
 void handleClient()
 {
-  //Serial.printf("###handleClient - 1\n");
   server->handleClient();
-  //Serial.printf("###handleClient - 2\n");
 }
