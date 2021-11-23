@@ -4,12 +4,17 @@
 #include "esp_err.h"
 #include "esp_camera.h"
 
+void outputCameraStatus();
+esp_err_t write_file(const char *path, const uint8_t *buf, size_t buflen);
+esp_err_t _takePic(const char* path);
+void printBufferHead(const uint8_t *buf, size_t buflen);
+bool isJpgBuf(const uint8_t *buf, size_t buflen);
+
 class Camera
 {
     public:
-        camera_config_t config;
         Camera();
-        esp_err_t takePic(bool (*cb)(const uint8_t *cbBuf, size_t cbSize));
+        esp_err_t takePic(const char *path);
 };
 
 #endif

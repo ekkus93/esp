@@ -70,10 +70,13 @@ SafeStr::~SafeStr()
 
 SafeStr *actualData = NULL;
 
-char filenames[3][20] = {
+char filenames[5][20] = {
     "/hello.txt",
     "/foo.txt",
-    "/test.txt"};
+    "/test.txt",
+    "/test_pic.jpg",
+    "/seq.txt"
+    };
 
 void setup(void)
 {
@@ -361,6 +364,33 @@ void test_sddir()
     Serial.printf("Used space: %lluMB\n", SD_MMC.usedBytes() / (1024 * 1024));
 }
 
+void test_seq()
+{
+    Serial.printf("###test_seq - 1\n");
+    SDWriteFile *seqWriteFile = new SDWriteFile(&SD_MMC, "/seq.txt");
+    seqWriteFile->deleteFile();
+    const uint8_t data[10] = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57 };
+    TEST_ASSERT_EQUAL(true, seqWriteFile->open());
+    
+    Serial.printf("###test_seq - 2\n");
+    for(int i=0; i<10000; i++)
+    {
+        // Serial.printf("###test_seq - 3\n");
+        seqWriteFile->write(data, sizeof(data));
+        seqWriteFile->file.flush();
+    }
+    seqWriteFile->close();
+    seqWriteFile->open();
+
+    const int fileSize = seqWriteFile->file.size();
+    Serial.printf("###test_seq - 4 - fileSize: %d\n", fileSize);
+    TEST_ASSERT_EQUAL(10000*sizeof(data), fileSize);
+    seqWriteFile->close();
+    // seqWriteFile->deleteFile();
+    delete seqWriteFile;
+    Serial.printf("###test_seq - 5\n");
+}
+
 void test_FileIO()
 {
     const char *path = "/test.txt";
@@ -414,9 +444,12 @@ void test_FileIO()
 void loop()
 {
     UNITY_BEGIN();
+    /*
     RUN_TEST(test_writeRead);
     RUN_TEST(test_writeReadAll);
     RUN_TEST(test_sddir);
     RUN_TEST(test_FileIO);
+    */
+    RUN_TEST(test_seq);
     UNITY_END(); // stop unit testing
 }

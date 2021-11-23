@@ -46,6 +46,7 @@ class SDWriteFile: public SDFile
     SDWriteFile(fs::FS *filestream, const char *path);
     bool open();
     size_t write(const uint8_t *buf, size_t size);
+    void flush();
 };
 
 #endif

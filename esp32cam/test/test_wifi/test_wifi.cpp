@@ -6,8 +6,18 @@ WiFiManager *wifiManager = NULL;
 
 void setup(void)
 {
+    Serial.begin(115200);
+    Serial.setDebugOutput(true);
+    Serial.println();
+
     const char *ssid = "CircuitLaunch";
     const char *password = "makinghardwarelesshard";
+
+    /*    
+    const char *ssid = "kensington2";
+    const char *password = "blu31tup*";
+    */
+
     wifiManager = new WiFiManager(ssid, password);
     wifiManager->connect();
 }

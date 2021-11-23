@@ -1,0 +1,309 @@
+> Executing task in folder esp32cam: C:\Users\phil\.platformio\penv\Scripts\platformio.exe device monitor --environment esp32cam <
+
+--- Available filters and text transformations: colorize, debug, default, direct, esp32_exception_decoder, hexlify, log2file, nocontrol, printable, send_on_enter, time
+--- More details at https://bit.ly/pio-monitor-filters
+--- Miniterm on COM5  115200,8,N,1 ---
+--- Quit: Ctrl+C | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2
+load:0x3fff0018,len:4
+load:0x3fff001c,len:1044
+load:0x40078000,len:10124
+load:0x40080400,len:5828
+entry 0x400806a8
+
+.....
+WiFi connected
+Starting web server on port: '80'
+Starting stream server on port: '81'
+Camera Ready! Use 'http://192.168.7.79' to connect
+framesize: 5     
+quality: 10      
+brightness: 0    
+contrast: 0      
+saturation: 0    
+sharpness: 0     
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 4422B 50ms
+framesize: 5
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 10673B 51ms
+framesize: 0
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 2197B 17ms
+framesize: 3
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 6633B 39ms
+framesize: 4
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 8227B 32ms
+framesize: 5
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 10818B 38ms
+framesize: 6
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 16722B 50ms
+framesize: 7
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 17676B 56ms
+framesize: 8
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 29570B 106ms
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 45009B 177ms
+framesize: 10
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+JPG: 64860B 302ms

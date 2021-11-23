@@ -269,5 +269,16 @@ size_t SDWriteFile::write(const uint8_t *buf, size_t size)
     return -1;
   }
 
-  return file.write(buf, size);
+  int wsize = file.write(buf, size);
+  file.flush();
+
+  return wsize;
+}
+
+void SDWriteFile::flush()
+{
+  if (!openFlag)
+  {
+    file.flush();
+  }
 }

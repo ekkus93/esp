@@ -20,8 +20,12 @@
 #include "camera_pins.h"
 #include "sdcard.h"
 
+/*
 const char* ssid = "CircuitLaunch";
 const char* password = "makinghardwarelesshard";
+ */
+const char* ssid = "kensington2";
+const char* password = "blu31tup*";
 
 void startCameraServer();
 

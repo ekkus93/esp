@@ -17,6 +17,7 @@
 #include "img_converters.h"
 #include "camera_index.h"
 #include "Arduino.h"
+#include "camera.h"
 
 #include "fb_gfx.h"
 #include "fd_forward.h"
@@ -231,6 +232,8 @@ static esp_err_t capture_handler(httpd_req_t *req){
     httpd_resp_set_hdr(req, "Content-Disposition", "inline; filename=capture.jpg");
     httpd_resp_set_hdr(req, "Access-Control-Allow-Origin", "*");
 
+    outputCameraStatus();
+
     size_t out_len, out_width, out_height;
     uint8_t * out_buf;
     bool s;
@@ -241,6 +244,8 @@ static esp_err_t capture_handler(httpd_req_t *req){
         if(fb->format == PIXFORMAT_JPEG){
             fb_len = fb->len;
             res = httpd_resp_send(req, (const char *)fb->buf, fb->len);
+
+            write_file("/test_cam.jpg", fb->buf, fb->len);
         } else {
             jpg_chunking_t jchunk = {req, 0};
             res = frame2jpg_cb(fb, 80, jpg_encode_stream, &jchunk)?ESP_OK:ESP_FAIL;

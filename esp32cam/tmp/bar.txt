@@ -1,0 +1,727 @@
+> Executing task in folder esp32cam: C:\Users\phil\.platformio\penv\Scripts\platformio.exe test --environment esp32cam <
+
+Verbose mode can be enabled via `-v, --verbose` option
+Collected 3 items
+
+Processing test_camera in esp32cam environment
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------Building...
+Uploading...
+Testing...
+If you don't see any output for the first 10 secs, please reset board (press reset button)
+
+ets Jun  8 2016 00:22:57
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:2    
+load:0x3fff0018,len:4    
+load:0x3fff001c,len:1044 
+load:0x40078000,len:10124
+load:0x40080400,len:5828 
+entry 0x400806a8
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 30120
+###takePic - 9
+JPG: 30120B 120ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 17104
+###takePic - 9
+JPG: 17104B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16792
+###takePic - 9
+JPG: 16792B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16501
+###takePic - 9
+JPG: 16501B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16345
+###takePic - 9
+JPG: 16345B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16434
+###takePic - 9
+JPG: 16434B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16337
+###takePic - 9
+JPG: 16337B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16456
+###takePic - 9
+JPG: 16456B 52ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16465
+###takePic - 9
+JPG: 16465B 50ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16434
+###takePic - 9
+JPG: 16434B 52ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16422
+###takePic - 9
+JPG: 16422B 50ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16505
+###takePic - 9
+JPG: 16505B 51ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16430
+###takePic - 9
+JPG: 16430B 61ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16229
+###takePic - 9
+JPG: 16229B 49ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16261
+###takePic - 9
+JPG: 16261B 51ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16873
+###takePic - 9
+JPG: 16873B 55ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 17335
+###takePic - 9
+JPG: 17335B 52ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16923
+###takePic - 9
+JPG: 16923B 54ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16177
+###takePic - 9
+JPG: 16177B 50ms
+###takePic - 10
+framesize: 9
+quality: 10
+brightness: 0
+contrast: 0
+saturation: 0
+sharpness: 0
+special_effect: 0
+wb_mode: 0
+awb: 1
+awb_gain: 1
+aec: 1
+aec2: 0
+ae_level: 0
+aec_value: 168
+agc: 1
+agc_gain: 0
+gainceiling: 0
+bpc: 0
+wpc: 1
+raw_gma: 1
+lenc: 1
+vflip: 0
+hmirror: 0
+dcw: 1
+colorbar: 0
+###takePic - 1
+###takePic - 2
+###takePic - 3 - width: 800
+###takePic - 4
+###takePic - 5
+###fb_len: 16350
+###takePic - 9
+JPG: 16350B 53ms
+###takePic - 10
+test\test_camera\test_camera.cpp:60:test_takePic        [PASSED]
