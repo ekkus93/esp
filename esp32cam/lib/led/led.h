@@ -4,7 +4,11 @@
 void ledSetup();
 void whiteLedOn();
 void whiteLedOff();
+void whiteLedToggle();
+bool getWhiteLed();
 void redLedOn();
 void redLedOff();
+void redLedToggle();
+bool getRedLed();
 
 #endif

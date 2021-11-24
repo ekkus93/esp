@@ -1,9 +1,9 @@
 #ifndef WEBAPP_H
 #define WEBAPP_H
 
-#include <WebServer.h>
+#include <AsyncTCP.h>
+#include <ESPAsyncWebServer.h>
 
 void webAppSetup();
-void handleClient();
 
 #endif

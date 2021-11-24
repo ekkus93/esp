@@ -57,12 +57,8 @@ void loop()
   }
   */
 
-  handleClient();
-
-  /*
   redLedOn();
   delay(500);
   redLedOff();
   delay(1000);
-  */
 }
