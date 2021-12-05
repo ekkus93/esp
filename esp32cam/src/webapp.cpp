@@ -159,6 +159,10 @@ String getContentType(String filename)
   {
     return "application/javascript";
   }
+  else if (filename.endsWith(".json") || filename.endsWith(".map"))
+  {
+    return "application/json";
+  }
   else if (filename.endsWith(".png"))
   {
     return "image/png";
@@ -202,7 +206,7 @@ void fileSend(String path, String contentType)
   Serial.println(contentType);
 
   Serial.printf("###sendFile - 2\n");
-  dirList(path.c_str(), &dirPrint);
+  // dirList(path.c_str(), &dirPrint);
 
   Serial.printf("###sendFile - 3\n");
   File file = SD_MMC.open(path, "r"); // Open the File with file name = to path with intention to read it. For other modes see <a href="https://arduino-esp8266.readthedocs.io/en/latest/filesystem.html" style="font-size: 13.5px;"> https://arduino-esp8266.readthedocs.io/en/latest/...</a>
@@ -270,7 +274,7 @@ bool proxyRequest(String uri)
 
   WiFiClient *wifiClient = http.getStreamPtr();
 
-  uint8_t buf[512];
+  uint8_t buf[1024];
   size_t byteCnt = 0;
   bool readFlag = true;
 
