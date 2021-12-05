@@ -110,7 +110,7 @@ esp_err_t takePic(const char* path)
       {
         fb_len = fb->len;
 
-        write_file(path, fb->buf, fb->len);
+        fileWrite(path, fb->buf, fb->len);
       }
       else
       {

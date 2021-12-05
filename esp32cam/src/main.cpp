@@ -11,6 +11,7 @@
 
 bool haltFlag = false;
 bool debugFlag = true;
+WebServer *webServer;
 
 void setup()
 {
@@ -30,13 +31,12 @@ void setup()
   IPAddress ipAddress = wifiStaSetup();
   Serial.printf("\nIP address: %s\n", ipAddress.toString().c_str());
 
-  webAppSetup();
-
   ntpSetup();
   Serial.printf("time: %lu\n", getTime());
   delay(5000);
-  ntpSetup();
   Serial.printf("time: %lu\n", getTime());
+
+  webServer = webAppSetup();
 }
 
 void loop()
@@ -57,8 +57,11 @@ void loop()
   }
   */
 
+  webServer->handleClient();
+  /*
   redLedOn();
   delay(500);
   redLedOff();
   delay(1000);
+  */
 }

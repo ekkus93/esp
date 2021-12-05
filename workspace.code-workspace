@@ -1,11 +1,4 @@
 {
-	"folders": [
-		{
-			"uri": "vscode-remote://wsl+ubuntu-18.04/home/phil/c/work/esp32"
-		},
-		{
-			"uri": "vscode-remote://wsl+ubuntu-18.04/home/phil/c/work"
-		}
-	],
+	"folders": [],
 	"remoteAuthority": "wsl+Ubuntu-18.04"
 }

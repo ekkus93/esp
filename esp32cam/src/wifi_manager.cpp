@@ -2,8 +2,12 @@
 
 const char *apSsid = "e32c";
 const char *apPassword = "3sp32cam*";
+/*
 const char *staSsid = "CircuitLaunch";
 const char *staPassword = "makinghardwarelesshard";
+*/
+const char *staSsid = "kensington2";
+const char *staPassword = "blu31tup*";
 
 IPAddress local_ip(192, 168, 51, 1);
 IPAddress gateway(192, 168, 51, 1);
