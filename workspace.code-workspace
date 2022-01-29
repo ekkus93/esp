@@ -1,4 +1,8 @@
 {
-	"folders": [],
-	"remoteAuthority": "wsl+Ubuntu-18.04"
+	"folders": [
+		{
+			"path": "esp32cam"
+		}
+	],
+	"settings": {}
 }
