@@ -69,6 +69,7 @@ void setup() {
 }
 
 void handleServo() {
+  myservo.attach(SERVO_PIN, 500, 2400); 
   for (pos = 2; pos <= 88; pos += 1) { 
     // in steps of 1 degree
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
@@ -79,6 +80,7 @@ void handleServo() {
     myservo.write(pos);    // tell servo to go to position in variable 'pos'
     delay(15);             // waits 15ms for the servo to reach the position
   }
+  myservo.detach(); 
 }
 
 void loop() {
